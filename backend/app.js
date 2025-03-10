@@ -5,6 +5,8 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+
+
 const { ValidationError } = require('sequelize');
 
 const { environment } = require('./config');
@@ -12,12 +14,13 @@ const isProduction = environment === 'production';
 
 const app = express();
 
+
 // Connect morgan middleware for logging
 app.use(morgan('dev'));
-
 // Parse cookies and JSON bodies
 app.use(cookieParser());
 app.use(express.json());
+
 
 // Security middleware
 if (!isProduction) {
@@ -81,4 +84,6 @@ app.use((err, _req, res, _next) => {
     stack: isProduction ? null : err.stack
   });
 });
+
+
 module.exports = app;
